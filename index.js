@@ -20,6 +20,33 @@ client.once('ready', () => {
   console.log(`บอทออนไลน์แล้ว`);
 });
 
+client.on('guildMemberAdd', async member => {
+
+  const channel = member.guild.channels.cache.get('1480411877350576244');
+
+  if (!channel) return;
+
+  const embed = new EmbedBuilder()
+    .setColor(0x5865F2)
+    .setTitle('🎉 ยินดีต้อนรับ!')
+    .setDescription(`สวัสดี ${member} 👋\nกดปุ่มด้านล่างเพื่อเริ่มใช้งาน`)
+    .setTimestamp();
+
+  const roleBtn = new ButtonBuilder()
+    .setCustomId('get_role')
+    .setLabel('🎯 รับยศ')
+    .setStyle(ButtonStyle.Success);
+
+  const row = new ActionRowBuilder().addComponents(roleBtn);
+
+  channel.send({
+    content: `${member}`,
+    embeds: [embed],
+    components: [row]
+  });
+
+});
+
 client.on('interactionCreate', async interaction => {
 
   // ✅ คำสั่ง /button
